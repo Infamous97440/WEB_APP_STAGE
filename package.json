@@ -1,0 +1,31 @@
+{
+  "name": "web_app_stage",
+  "version": "1.0.0",
+  "description": "Bienvenue dans le test technique. Ce test a pour objectif d’évaluer votre capacité à manipuler des données, à extraire des informations pertinentes, et à concevoir une petite application web pour les restituer de manière claire.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Infamous97440/WEB_APP_STAGE.git"
+  },
+  "author": "Brandon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Infamous97440/WEB_APP_STAGE/issues"
+  },
+  "homepage": "https://github.com/Infamous97440/WEB_APP_STAGE#readme",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.10.1",
+    "lodash": "^4.17.21",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
