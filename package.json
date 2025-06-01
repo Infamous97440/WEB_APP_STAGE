@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Infamous97440/WEB_APP_STAGE#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-graphql": "^0.12.0",

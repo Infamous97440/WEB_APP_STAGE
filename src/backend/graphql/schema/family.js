@@ -1,4 +1,4 @@
-const {db} = require("../../backend/db");
+const {db} = require("../../db");
 const {GraphQLString, GraphQLObjectType, GraphQLBoolean, GraphQLInt, GraphQLID, GraphQLNonNull} = require("graphql");
 
 async function get_family_by_id(family_id)

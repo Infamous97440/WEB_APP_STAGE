@@ -1,4 +1,4 @@
-const {GraphQLObjectType, GraphQLSchema, GraphQLID, GraphQLList} = require("graphql");
+const {GraphQLObjectType, GraphQLSchema, GraphQLID, GraphQLList, GraphQLNonNull} = require("graphql");
 const {SCHEMA_ENTITIES, get_entity_by_id, get_entities_by_family} = require("./entities");
 const {SCHEMA_BOAT, get_boat_by_id, get_boat_by_owner_id} = require("./boat");
 const {SCHEMA_FAMILY, get_family_by_id} = require("./family");
@@ -75,7 +75,7 @@ const RootQuery = new GraphQLObjectType({
         },
         getBillLineById: {
             type: SCHEMA_BILL_LINE,
-            args: {id: {type: GraphQLID}},
+            args: {id: {type: new GraphQLNonNull(GraphQLID)}},
             resolve(parent, args) {
                 return get_bill_line_by_id(args.id);
             }

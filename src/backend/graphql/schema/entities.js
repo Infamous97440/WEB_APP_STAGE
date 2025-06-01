@@ -1,6 +1,6 @@
 const {GraphQLString, GraphQLObjectType, GraphQLNonNull, GraphQLInt, GraphQLID, GraphQLList} = require("graphql");
 const {SCHEMA_FAMILY, get_family_by_id} = require("./family");
-const {db} = require("../../backend/db");
+const {db} = require("../../db");
 
 async function get_entity_by_id(entity_id)
 {

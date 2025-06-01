@@ -1,4 +1,4 @@
-const {db} = require("../../backend/db");
+const {db} = require("../../db");
 const {GraphQLString, GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLEnumType} = require("graphql");
 
 const TRANSFORMATION_LEVEL_ENUM = new GraphQLEnumType({
@@ -11,6 +11,22 @@ const TRANSFORMATION_LEVEL_ENUM = new GraphQLEnumType({
     }
 });
 
+async function get_presentation_by_id(id)
+{
+    try{
+        const result = await db.query("SELECT * FROM presentation WHERE presentation.id = $1", [id]);
+
+        if (result) {
+            console.log(result.rows);
+            return result.rows[0];
+        }
+        return null;
+    } catch(err) {
+        console.log(err);
+        return null;
+    }
+}
+
 const SCHEMA_PRESENTATION = new GraphQLObjectType({
     name: "presentation",
     fields: () => ({
@@ -21,4 +37,4 @@ const SCHEMA_PRESENTATION = new GraphQLObjectType({
     })
 });
 
-module.exports = {SCHEMA_PRESENTATION};
+module.exports = {SCHEMA_PRESENTATION, get_presentation_by_id};

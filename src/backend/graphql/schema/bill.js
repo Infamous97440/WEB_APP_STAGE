@@ -1,5 +1,5 @@
 const {SCHEMA_ENTITIES, get_entity_by_id} = require("./entities");
-const {db} = require("../../backend/db");
+const {db} = require("../../db");
 const {GraphQLString, GraphQLObjectType, GraphQLInt, GraphQLNonNull, GraphQLID, GraphQLEnumType, GraphQLFloat} = require("graphql");
 
 async function get_bill_by_id(bill_id)

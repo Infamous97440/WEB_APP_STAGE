@@ -1,6 +1,6 @@
 const {GraphQLID, GraphQLNonNull, GraphQLString, GraphQLObjectType} = require("graphql");
 const {SCHEMA_SPECIES_FAMILY, get_species_by_id} = require("./species_family");
-const {db} = require("../../backend/db");
+const {db} = require("../../db");
 
 async function get_fish_by_id(fish_id)
 {
