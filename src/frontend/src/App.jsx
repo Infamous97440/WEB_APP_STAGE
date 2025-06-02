@@ -1,15 +1,17 @@
 import BillLine from './components/BillLine'
+import BoatStats from './components/BoatStats';
 import FormWrapper from './components/FormWrapper';
 
 const App = () => {
   return (
     <>
       <div>
-        <FormWrapper title="Search bill line by ID!" field1="Bill line ID " placeholder1="Enter an ID"
-          button_title="Submit"
-          validator={(val) => !isNaN(val) && val > 0 && val <= 1000}
+        <FormWrapper title="Cherchez les factures par ID!" field1="Facture ID " placeholder1="Entrer un ID"
+          button_title="Envoyer"
+          validator={(val) => !isNaN(val)}
           component={(id) => <BillLine id={id} />}
         />
+        <BoatStats/>
       </div>
     </>
   );

@@ -1,6 +1,9 @@
 const {SCHEMA_ENTITIES, get_entity_by_id} = require("./entities");
 const {db} = require("../../db");
-const {GraphQLString, GraphQLObjectType, GraphQLInt, GraphQLNonNull, GraphQLID, GraphQLEnumType, GraphQLFloat} = require("graphql");
+const {GraphQLString, GraphQLObjectType, GraphQLInt, GraphQLNonNull, GraphQLID, GraphQLEnumType, GraphQLFloat, GraphQLList} = require("graphql");
+const {get_total_ttc_by_buyer_id, get_bill_count_by_boat_id, get_total_ttc_by_payment_method, get_monthly_ttc_by_year_and_buyer_id, get_top_buyers_by_annual_ttc, get_total_ttc_by_payment_method_by_buyer_id} = require("../../statistic");
+const {SCHEMA_BOAT, get_boat_by_id} = require("./boat");
+const {SCHEMA_TTC_PAYMENT_METHOD, SCHEMA_TOTAL_TTC_MONTHLY, SCHEMA_BUYER_TTC} = require("./bill_stats");
 
 async function get_bill_by_id(bill_id)
 {
@@ -60,7 +63,12 @@ const SCHEMA_BILL = new GraphQLObjectType({
         bill_id: {type: GraphQLID},
         payment_method: {type: new GraphQLNonNull(PAYMENT_METHOD_ENUM)},
         status: {type: new GraphQLNonNull(STATUS_ENUM)},
-        boat_id: {type: new GraphQLNonNull(GraphQLInt)},
+        boat_id: {
+            type: SCHEMA_BOAT,
+            resolve(parent, args) {
+                return parent.boat_id ? get_boat_by_id(parent.boat_id) : null;
+            }
+        },
         buyer_id: {
             type: SCHEMA_ENTITIES,
             resolve(parent, args) {
@@ -124,6 +132,42 @@ const SCHEMA_BILL = new GraphQLObjectType({
         fishing_paper: {type: GraphQLString},
         delivery_address: {type: GraphQLString},
         bill_number: {type: new GraphQLNonNull(GraphQLString)},
+        bill_count_by_boat: {
+            type: GraphQLInt,
+            resolve(parent, args) {
+                return get_bill_count_by_boat_id(parent.boat_id);
+            }
+        },
+        total_ttc_by_buyer_id: {
+            type: GraphQLFloat,
+            resolve(parent, args) {
+                return get_total_ttc_by_buyer_id(parent.buyer_id);
+            }
+        },
+        total_ttc_by_payment_method: {
+            type: new GraphQLList(SCHEMA_TTC_PAYMENT_METHOD),
+            resolve(parent, args) {
+                return get_total_ttc_by_payment_method();
+            }
+        },
+        monthly_ttc_by_year_and_buyer_id: {
+            type: new GraphQLList(SCHEMA_TOTAL_TTC_MONTHLY),
+            resolve(parent, args) {
+                return get_monthly_ttc_by_year_and_buyer_id(new Date(parent.billing_date).getFullYear(), parent.buyer_id);
+            }
+        },
+        top_buyers_by_annual_ttc: {
+            type: new GraphQLList(SCHEMA_BUYER_TTC),
+            resolve(parent, args) {
+                return get_top_buyers_by_annual_ttc(new Date(parent.billing_date).getFullYear(), 5);
+            }
+        },
+        total_ttc_by_payment_method_by_buyer_id: {
+            type: new GraphQLList(SCHEMA_TTC_PAYMENT_METHOD),
+            resolve(parent, args) {
+                return get_total_ttc_by_payment_method_by_buyer_id(parent.buyer_id);
+            }
+        }
     })
 });
 

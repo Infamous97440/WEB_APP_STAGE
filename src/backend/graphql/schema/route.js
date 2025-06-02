@@ -1,4 +1,4 @@
-const {GraphQLObjectType, GraphQLSchema, GraphQLID, GraphQLList, GraphQLNonNull} = require("graphql");
+const {GraphQLObjectType, GraphQLSchema, GraphQLID, GraphQLList, GraphQLNonNull, GraphQLFloat} = require("graphql");
 const {SCHEMA_ENTITIES, get_entity_by_id, get_entities_by_family} = require("./entities");
 const {SCHEMA_BOAT, get_boat_by_id, get_boat_by_owner_id} = require("./boat");
 const {SCHEMA_FAMILY, get_family_by_id} = require("./family");
@@ -6,6 +6,7 @@ const {SCHEMA_FISH, get_fish_by_id} = require("./fish");
 const {SCHEMA_BILL, get_bill_by_buyer_id, get_bill_by_id, get_bill_by_member_id} = require("./bill");
 const {SCHEMA_BILL_LINE, get_bill_line_by_id} = require("./bill_line");
 const {SCHEMA_SPECIES_FAMILY, get_species_by_id} = require("./species_family");
+const SCHEMA_BOAT_STATS = require("./boat_stats");
 
 const RootQuery = new GraphQLObjectType({
     name: "RootQuery",
@@ -79,7 +80,13 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent, args) {
                 return get_bill_line_by_id(args.id);
             }
-        }
+        },
+        boat_stats: {
+            type: SCHEMA_BOAT_STATS,
+            resolve() {
+                return {};
+            }
+        },
     }
 })
 

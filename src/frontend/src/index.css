@@ -1,4 +1,9 @@
 body {
-  background: #463232;
+  background: #ffffff;
   font-family: sans-serif;
+}
+
+.bat {
+  list-style-position: inside;
+  padding-left: 20px;
 }

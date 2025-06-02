@@ -8,7 +8,7 @@ j'ais choisi d'utiliser graphql pour l'api car très performant du fait qu'il re
 pour le front:
 npm create vite@latest src/frontend/ -- --template react
 npm install @apollo/server @apollo/client graphql
-npm install chart.js "librairie open source bien documenter et facile a interer pour faire de beau graphique et responsive"
+npm install rechart.js "librairie open source bien documenter et facile a interer pour faire de beau graphique et responsive"
 npm install cors pour pouvoir envoyer les donné graphql au front
 
 react car très pratique bien documenter beaucoup de tuto et beaucoup de fonctionnalité

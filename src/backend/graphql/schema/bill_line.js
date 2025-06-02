@@ -3,7 +3,6 @@ const {SCHEMA_BILL, get_bill_by_id} = require("./bill");
 const {SCHEMA_FISH, get_fish_by_id} = require("./fish");
 const {db} = require("../../db");
 
-
 async function get_bill_line_by_id(id)
 {
     try {
