@@ -1,86 +1,131 @@
-# 🧪 Test Technique - Analyse de Données
+# 💼 Facture App – React, GraphQL, PostgreSQL
 
-Bienvenue dans le test technique.
-Ce test a pour objectif d’évaluer votre capacité à manipuler des données, à extraire des informations pertinentes, et à concevoir une petite application web pour les restituer de manière claire.
+## 🧠 Présentation
 
----
+Ce projet est une application de gestion de factures construite en **React** avec **Vite**, une API en **GraphQL** via **Apollo Server**, et une base de données **PostgreSQL**.
 
-## 🧠 Objectif
-
-Vous recevrez un fichier `.sql` contenant la structure et les données d'une base de données.
-Votre mission est de :
-
-1. **Importer les données** dans votre base PostgreSQL locale.
-2. **Développer un backend** pour interroger les données et effectuer des analyses statistiques.
-3. **Créer un frontend** simple pour afficher les résultats de vos analyses.
+L'objectif est de fournir une interface rapide et moderne permettant de visualiser des factures sous forme de graphiques dynamiques grâce à **Recharts**, avec une communication optimisée entre le front-end et le back-end via **GraphQL**.
 
 ---
 
-## 🛠 Technologies attendues
+## ⚙️ Choix technologiques
 
-Aucune stack imposée, mais voici les recommandations :
+### 🗂️ Frontend
 
-- **Backend** : Node.js, Python (Flask, FastAPI), etc.
-- **Frontend** : React, Vue.js, ou tout autre framework SPA
-- **Base de données** : PostgreSQL
+- **React + Vite** :
+  - Choix motivé par la rapidité de développement de Vite et la richesse de l’écosystème React.
+  - Beaucoup de documentation et une grande communauté.
+  
+- **Apollo Client** :
+  - Librairie officielle pour consommer des API GraphQL côté client.
+  - Très bien intégrée avec React.
+  
+- **Recharts** :
+  - Librairie de graphiques open source facile à intégrer.
+  - Réactive, bien documentée, parfaite pour visualiser des données comme les factures.
 
----
+### 🛠️ Backend
 
-## 📋 Instructions
+- **Apollo Server (via Express)** :
+  - Permet de construire un serveur GraphQL complet.
+  - Intégré avec Express pour plus de flexibilité.
+  
+- **GraphQL** :
+  - Permet de faire des requêtes précises et optimisées.
+  - Idéal pour éviter les over-fetching/under-fetching.
+  - Le front peut demander uniquement les données dont il a besoin, même des structures imbriquées, en une seule requête.
 
-1. Créez votre base de données PostgreSQL.
-2. Importez les données grâce au script bash **`db.sh`** fourni.
-3. Développez une API REST ou GraphQL permettant de récupérer les données pertinentes.
-4. Effectuez des analyses **statistiques** sur les **factures**. Aucune restriction : si une donnée vous semble pertinente à mettre en valeur, faites-le.
-5. Affichez vos résultats dans une interface web simple (graphiques, tableaux, etc.).
-6. Documentez votre travail dans un fichier `README.md`.
+- **PostgreSQL** :
+  - Base de données relationnelle robuste.
+  - Très bien supportée avec Node.js via divers ORM ou query builders.
 
----
-
-## 📦 Livrables attendus
-
-- Le code source complet (backend + frontend), dans un repository Git ou une archive `.zip`.
-- Un `README.md` expliquant :
-  - Comment lancer le projet localement
-  - Les choix techniques effectués
-  - Les analyses réalisées
-
----
-
-## 🧾 Script
-
-Pour exécuter le script de création des tables et d’insertion des données, vous devez d’abord avoir PostgreSQL installé.
-Ensuite :
-
-1. Créez une base de données (par exemple : `test_technique_aripa`)
-2. Exécutez le script **`db.sh`** depuis le dossier `database`.
-  Si le script ne fonctionne pas, ne paniquez pas.
-  Retrouver ces commandes dans le script.
-  ```bash
-    psql -h localhost -U "$db_user" -d "$db_name" -f init.sql
-  ```
-  Et éxécuter les à la main dans cette ordre :
-  ```bash
-    psql -h localhost -U "$db_user" -d "$db_name" -f init.sql
-    psql -h localhost -U "$db_user" -d "$db_name" -f insert_species.sql
-    psql -h localhost -U "$db_user" -d "$db_name" -f insert_fish.sql
-    psql -h localhost -U "$db_user" -d "$db_name" -f insert_entities_boats_bills.sql
-  ```
+- **Dotenv** :
+  - Utilisé pour la gestion des variables d'environnement (connexion à la DB, port, etc.).
+  - Séparation propre des données sensibles.
 
 ---
 
-## 📅 Date limite
+## 📦 Dépendances
 
-Le rendu est attendu **au plus tard le mardi 2 juin 2025 à 12h00**.
+### Backend
 
-Merci de respecter cette date afin que nous puissions évaluer toutes les candidatures équitablement.
+```bash
+npm install -y
+npm install express express-graphql graphql dotenv pg cors
+```
 
----
+### Frontend
+```
+npm create vite@latest src/frontend/ -- --template react
+cd src/frontend/
+npm install @apollo/client graphql recharts
+```
 
-## ❓ Questions
+## Lancer le projet
 
-Pour toute question durant le test, vous pouvez me contacter à : **[manu.acamas-vaudemont@epitech.eu]**
+### Cloner le repo
+```
+git clone git@github.com:Infamous97440/WEB_APP_STAGE.git
+cd WEB_APP_STAGE
+```
+### CONFIGURER LE .env à la racine du repo avec ses informations:
+```
+PGHOST=localhost
+PGUSER=ton_utilisateur
+PGPASSWORD=ton_mot_de_passe
+PGDATABASE=nom_de_ta_db
+PGPORT=5432
+PORT=3000
+```
+### Lancer le backend
+```
+node src/index.js
+```
+l'api demarrera sur l'adresse http://localhost:3000/graphql par defaut
 
----
+Vous pourrez y faire des requête graphql pour recupérer des valeur et les visualiser
 
-Bonne chance ! 🚀
+exemple de requête graphql:
+```
+query TEST($id: ID!) {
+    getBillLineById(id: $id) {
+             id
+             bill_id {
+               bill_id
+               created_at
+               updated_at
+               fishing_paper
+               delivery_address
+             }
+             lot_number
+             fish_id {
+               fish_id
+               name
+             }
+             fish_status
+             quantity
+             unit_price
+             total_price
+             total_epv
+             code_fao
+             name
+             presentation
+             coef_epv
+             fresh_grade
+             created_at
+             updated_at
+    }
+}
+```
+et dans Query Variables qui se trouve en bas de la page mettez par exemple;
+```
+{"id": 1}
+```
+cliquez sur le premier bouton à droite du titre GraphiQL et dans l'inspecteur tout à droite vous verrez les donné sous format JSON
+
+### Lancer le frontend
+```
+cd src/frontend
+npm run dev
+```
+l'application react demarrera sur l'adresse http://localhost:5173

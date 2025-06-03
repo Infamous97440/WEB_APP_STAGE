@@ -1,6 +1,6 @@
 import {gql, useQuery} from '@apollo/client';
-import { BarChart, Bar, XAxis, YAxis } from 'recharts';
-import {PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer} from 'recharts';
+import {BarChart, Bar, XAxis, YAxis} from 'recharts';
+import {Cell, Tooltip, Legend, ResponsiveContainer} from 'recharts';
 
 const GET_BILL_LINE_QUERY = gql`
     query GetBillLineById($id: ID!) {
@@ -134,10 +134,7 @@ const BillLine = ({id}) => {
                 <li style={{ marginTop: '2rem' }}>
                     <b>Part TTC de ce client par méthode de paiement (par rapport au total global)</b>
                     <ResponsiveContainer width="100%" height={300}>
-                        <BarChart
-                            data={ratioData}
-                            margin={{top: 20, right: 30, left: 20, bottom: 5}}
-                        >
+                        <BarChart data={ratioData} margin={{top: 20, right: 30, left: 20, bottom: 5}}>
                             <XAxis dataKey="payment_method" />
                             <YAxis tickFormatter={(value) => `${(value * 100).toFixed(0)}%`} />
                             <Tooltip formatter={(value, name, props) =>
