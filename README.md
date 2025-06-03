@@ -13,7 +13,7 @@ L'objectif est de fournir une interface rapide et moderne permettant de visualis
 ### 🗂️ Frontend
 
 - **React + Vite** :
-  - Choix motivé par la rapidité de développement de Vite et la richesse de l’écosystème React.
+  - Choix motivé par la rapidité de développement de Vite.
   - Beaucoup de documentation et une grande communauté.
   
 - **Apollo Client** :
@@ -22,7 +22,7 @@ L'objectif est de fournir une interface rapide et moderne permettant de visualis
   
 - **Recharts** :
   - Librairie de graphiques open source facile à intégrer.
-  - Réactive, bien documentée, parfaite pour visualiser des données comme les factures.
+  - Responsive, bien documentée, parfaite pour visualiser des données comme les factures.
 
 ### 🛠️ Backend
 
@@ -35,15 +35,19 @@ L'objectif est de fournir une interface rapide et moderne permettant de visualis
   - Idéal pour éviter les over-fetching/under-fetching.
   - Le front peut demander uniquement les données dont il a besoin, même des structures imbriquées, en une seule requête.
 
-- **PostgreSQL** :
-  - Base de données relationnelle robuste.
-  - Très bien supportée avec Node.js via divers ORM ou query builders.
-
 - **Dotenv** :
   - Utilisé pour la gestion des variables d'environnement (connexion à la DB, port, etc.).
   - Séparation propre des données sensibles.
 
 ---
+
+## Lancer le projet
+
+### Cloner le repo
+```bash
+git clone git@github.com:Infamous97440/WEB_APP_STAGE.git
+cd WEB_APP_STAGE
+```
 
 ## 📦 Dépendances
 
@@ -55,25 +59,17 @@ npm install express express-graphql graphql dotenv pg cors
 ```
 
 ### Frontend
-```
-npm create vite@latest src/frontend/ -- --template react
+```bash
 cd src/frontend/
 npm install @apollo/client graphql recharts
 ```
 
-## Lancer le projet
-
-### Cloner le repo
-```
-git clone git@github.com:Infamous97440/WEB_APP_STAGE.git
-cd WEB_APP_STAGE
-```
 ### CONFIGURER LE .env à la racine du repo avec ses informations:
 ```
-PGHOST=localhost
-PGUSER=ton_utilisateur
-PGPASSWORD=ton_mot_de_passe
-PGDATABASE=nom_de_ta_db
+PGHOST="localhost"
+PGUSER="ton_utilisateur"
+PGPASSWORD="ton_mot_de_passe"
+PGDATABASE="nom_de_ta_db"
 PGPORT=5432
 PORT=3000
 ```
@@ -124,7 +120,7 @@ et dans Query Variables qui se trouve en bas de la page mettez par exemple;
 cliquez sur le premier bouton à droite du titre GraphiQL et dans l'inspecteur tout à droite vous verrez les donné sous format JSON
 
 ### Lancer le frontend
-```
+```bash
 cd src/frontend
 npm run dev
 ```
